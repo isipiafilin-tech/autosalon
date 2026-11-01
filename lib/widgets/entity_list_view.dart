@@ -165,6 +165,7 @@ class _EntityListViewState<T extends Entity> extends State<EntityListView<T>> {
         builder: (context, _) {
           final page = _notifier.page;
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _FilterPanel<T>(
                 config: cfg,
@@ -442,7 +443,14 @@ class _EntityListViewState<T extends Entity> extends State<EntityListView<T>> {
                         ),
                         const SizedBox(height: 6),
                         for (final c
-                            in cfg.columns.where((c) => c.inCard).take(4))
+                            in cfg.columns
+                                .where(
+                                  (c) =>
+                                      c.inCard &&
+                                      c.value(e) != cfg.cardTitle(e) &&
+                                      c.value(e) != cfg.cardSubtitle(e),
+                                )
+                                .take(4))
                           Padding(
                             padding: EdgeInsets.only(
                               left: selectable ? 12 : 0,

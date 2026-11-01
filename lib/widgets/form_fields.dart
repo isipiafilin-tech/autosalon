@@ -62,7 +62,7 @@ class FieldSpec {
       final text = (value ?? '').toString();
       return firstError(text, [
         if (required) _requiredText,
-        if (kind == FieldKind.integer) intRange(-1 << 31, 1 << 31),
+        if (kind == FieldKind.integer) intRange(-2147483648, 2147483647),
         if (kind == FieldKind.decimal) numRange(-1e12, 1e12),
         ...validators,
       ]);
