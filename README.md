@@ -1,90 +1,23 @@
-# Автосалон
+Автосалон. Клиент на Flutter Web, сервер на PocketBase 0.40.6 (папка pocketbase).
 
-Клиент на Flutter Web для автосалона: каталог автомобилей, заявки и сделки, договоры,
-тест-драйвы. Сервер — PocketBase (папка `pocketbase/`), клиент работает с его REST API.
+Учётные записи:
+администратор admin@autosalon.ru / admin12345
+менеджер manager@autosalon.ru / manager12345
+клиент client@autosalon.ru / client12345
 
-## Роли
-
-| Роль | Что может |
-|---|---|
-| Клиент | каталог, заявка на автомобиль, запись на тест-драйв, свои заявки и тест-драйвы |
-| Менеджер | автомобили и модели, клиенты, сделки, тест-драйвы, оформление договоров |
-| Администратор | справочники (марки, опции, услуги), пользователи и роли, корзина |
-
-Учётные записи для проверки:
-
-| Роль | Почта | Пароль |
-|---|---|---|
-| Администратор | admin@autosalon.ru | admin12345 |
-| Менеджер | manager@autosalon.ru | manager12345 |
-| Клиент | client@autosalon.ru | client12345 |
-
-## Запуск сервера
-
-PocketBase — один исполняемый файл. Скачайте архив для своей системы со страницы
-<https://github.com/pocketbase/pocketbase/releases> (проект проверен на версии 0.40.6),
-распакуйте `pocketbase.exe` в папку `pocketbase/` и выполните:
-
-```bash
+Запуск сервера (положить pocketbase.exe в папку pocketbase):
 cd pocketbase
 ./pocketbase superuser upsert admin@autosalon.local Admin12345
 ./pocketbase serve
 node seed.mjs
-```
 
-При первом запуске схема создаётся автоматически из `pb_migrations/`, серверные правила
-(конфликты 409, ошибки полей 422, статусы сделок) лежат в `pb_hooks/`. Скрипт `seed.mjs`
-заливает демонстрационные данные и учётные записи (нужен Node.js 18+); повторная заливка —
-`node seed.mjs --reset`. Панель управления: <http://127.0.0.1:8090/_/>.
-
-## Запуск клиента
-
-```bash
+Запуск клиента:
 flutter pub get
 flutter run -d chrome --web-hostname 127.0.0.1 --web-port 5000
-```
 
-Адрес сервера задаётся параметром сборки (по умолчанию `http://127.0.0.1:8090`):
+Адрес сервера по умолчанию http://127.0.0.1:8090, меняется параметром --dart-define=API_BASE_URL=...
 
-```bash
-flutter build web --release --base-href /autosalon/ --dart-define=API_BASE_URL=http://127.0.0.1:8090
-```
-
-## Схема базы данных
-
-Экспорт схемы: `pocketbase/schema.sql` (SQL-скрипт таблиц SQLite) и `pocketbase/pb_schema.json` (коллекции платформы).
-Диаграммы — в папке `docs/`.
-
-## Проверки
-
-```bash
-dart format --set-exit-if-changed lib test
-flutter analyze
-flutter test
-```
-
-## Публикация
-
-При изменении ветки `main` GitHub Actions проверяет код, запускает тесты, собирает
-приложение и публикует его на GitHub Pages (`.github/workflows/deploy.yml`). Адрес API
-задаётся переменной репозитория `API_BASE_URL`. Страница работает по HTTPS и обращается
-к серверу на `127.0.0.1`: браузеры не блокируют такие запросы, поэтому при показе сервер
-запускается на том же компьютере с разрешением источника опубликованного сайта:
-
-```bash
-./pocketbase serve --origins=https://<логин>.github.io
-```
-
-## Структура
-
-```
-lib/core          клиент HTTP, ошибки, настройки
-lib/models        модели, перечисления, права, расчёт стоимости, условия списка
-lib/repositories  интерфейс EntityRepository и реализация для PocketBase
-lib/state         вход и сессия, состояние списков, справочники, связь с сервером
-lib/screens       типовые экраны (список, карточка, форма), формы сделки/тест-драйва/договора
-lib/widgets       навигация, таблица и карточки, поля формы, постраничный вывод
-pocketbase        схема (миграция), серверные проверки, демонстрационные данные
-test              модульные тесты и тесты виджетов
-docs              диаграммы базы данных и слоёв (draw.io и PNG)
-```
+Схема базы данных: pocketbase/schema.sql и pocketbase/pb_schema.json
+Диаграммы: папка docs
+Проверки: dart format --set-exit-if-changed lib test, flutter analyze, flutter test
+Публикация на GitHub Pages: .github/workflows/deploy.yml
