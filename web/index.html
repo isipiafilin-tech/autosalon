@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!--
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly. This is a placeholder for base href that will be
+    replaced by the value of the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Автосалон: каталог автомобилей, заявки, тест-драйвы">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Автосалон">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Автосалон</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Заглушка на время начальной загрузки: вместо белого экрана -->
+  <style>
+    html, body { height: 100%; margin: 0; background: #fbf8ff; }
+    #splash {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
+      font: 500 28px Roboto, "Segoe UI", Arial, sans-serif; color: #1e4e8c;
+    }
+    #splash .spinner {
+      width: 44px; height: 44px; box-sizing: border-box;
+      border: 4px solid #c6d4ea; border-top-color: #1e4e8c; border-radius: 50%;
+      animation: splash-spin 1s linear infinite;
+    }
+    @keyframes splash-spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="splash" role="status" aria-label="Загрузка приложения">
+    <div>Автосалон</div>
+    <div class="spinner"></div>
+  </div>
+  <script>
+    // Заглушка убирается, как только Flutter отрисовал первый кадр.
+    window.addEventListener('flutter-first-frame', function () {
+      var splash = document.getElementById('splash');
+      if (splash) splash.remove();
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
