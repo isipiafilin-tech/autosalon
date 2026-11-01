@@ -50,6 +50,11 @@ flutter run -d chrome --web-hostname 127.0.0.1 --web-port 5000
 flutter build web --release --base-href /autosalon/ --dart-define=API_BASE_URL=http://127.0.0.1:8090
 ```
 
+## Схема базы данных
+
+Экспорт схемы: `pocketbase/schema.sql` (SQL-скрипт таблиц SQLite) и `pocketbase/pb_schema.json` (коллекции платформы).
+Диаграммы — в папке `docs/`.
+
 ## Проверки
 
 ```bash
@@ -81,4 +86,5 @@ lib/screens       типовые экраны (список, карточка, �
 lib/widgets       навигация, таблица и карточки, поля формы, постраничный вывод
 pocketbase        схема (миграция), серверные проверки, демонстрационные данные
 test              модульные тесты и тесты виджетов
+docs              диаграммы базы данных и слоёв (draw.io и PNG)
 ```
