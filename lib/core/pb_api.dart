@@ -61,8 +61,6 @@ Dio buildDio({
           }
         }
         if (error is NetworkException) onOffline?.call();
-
-        // Токен не принят: один раз пробуем продлить и повторить запрос.
         final isAuthCall = options.path.contains('/auth-');
         if (error is UnauthorizedException && !isAuthCall) {
           if (options.extra[_authRetryKey] != true && refreshToken != null) {

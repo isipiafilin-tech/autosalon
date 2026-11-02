@@ -1,7 +1,3 @@
--- Схема базы данных «Автосалон» (SQLite, платформа PocketBase 0.40.6).
--- Таблицы создаются автоматически миграцией pb_migrations/1760000000_autosalon_schema.js;
--- файл получен выгрузкой из рабочей базы и нужен для проверки и отчёта.
-
 CREATE TABLE `users` (`avatar` TEXT DEFAULT '' NOT NULL, `created` TEXT DEFAULT '' NOT NULL, `email` TEXT DEFAULT '' NOT NULL, `emailVisibility` BOOLEAN DEFAULT FALSE NOT NULL, `id` TEXT PRIMARY KEY DEFAULT ('r'||lower(hex(randomblob(7)))) NOT NULL, `name` TEXT DEFAULT '' NOT NULL, `password` TEXT DEFAULT '' NOT NULL, `tokenKey` TEXT DEFAULT '' NOT NULL, `updated` TEXT DEFAULT '' NOT NULL, `verified` BOOLEAN DEFAULT FALSE NOT NULL, "role" TEXT DEFAULT '' NOT NULL, "phone" TEXT DEFAULT '' NOT NULL);
 
 CREATE UNIQUE INDEX `idx_tokenKey__pb_users_auth_` ON `users` (`tokenKey`);

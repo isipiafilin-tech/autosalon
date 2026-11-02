@@ -50,7 +50,6 @@ class DealPricing {
 
   double get maxDiscount => discountLimit[payment] ?? 0;
 
-  /// Ошибки по полям формы (ключ — имя поля), пусто, если расчёт допустим.
   Map<String, String> validate() {
     final errors = <String, String>{};
     if (discountPercent > maxDiscount) {
